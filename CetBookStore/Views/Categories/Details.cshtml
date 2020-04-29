@@ -1,0 +1,26 @@
+﻿@model CetBookStore.Models.Category
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Model.Name</h1>
+<hr />
+<div>
+   
+    <dl class="row">
+        @foreach (var book in Model.Books)
+        {
+            @*<dt class="col-sm-4 ">
+                <h4>@book.Title</h4>
+                <div class="alert-info"> Satış Fiyatı : @book.Price </div>
+                <p> @book.Authors </p>
+                
+            </dt>*@
+  
+            <partial name="_bookDetail" model="book" />
+        }
+
+    </dl>
+</div>
+

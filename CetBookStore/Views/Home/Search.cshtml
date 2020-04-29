@@ -1,0 +1,114 @@
+﻿@model CetBookStore.ViewModel.SearchViewModel
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h1>Search</h1>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Search">
+            <div class="form-group">
+                <label asp-for="SearchText" class="control-label"></label>
+                <input asp-for="SearchText" class="form-control" />
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="SearchInDescription" /> @Html.DisplayNameFor(model => model.SearchInDescription)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId">
+                    <option value=""> Tüm Kategoriler </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="MinSearchPrice" class="control-label"></label>
+                <input asp-for="MinSearchPrice" class="form-control" />
+                <label asp-for="MaxSearchPrice" class="control-label"></label>
+                <input asp-for="MaxSearchPrice" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Ara" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+</div>
+@if (Model?.Results != null)
+{
+    <h3> Arama Sonuçları</h3>
+ <h5> @Model.Results.Count Adet Kitap bulundu. </h5>
+           
+ <div class="row">
+     <table class="table">
+         <thead>
+             <tr>
+                 <th>
+                    Başlık
+                 </th>
+                 <th>
+                    Sayfa Sayısı
+                 </th>
+                 <th>
+                     Yazarlar
+                 </th>
+                 <th>
+                    Açıklama
+                 </th>
+                 <th>
+                   Fiyat
+                 </th>
+                 <th>
+                   Basım Yılı
+                 </th>
+                 <th>
+                   Stok Bilgisi
+                 </th>
+                 <th>
+                    Kategori
+                 </th>
+                
+                 <th></th>
+             </tr>
+         </thead>
+         <tbody>
+             @foreach (var item in Model.Results)
+             {
+                 <tr>
+                     <td>
+                         @Html.DisplayFor(modelItem => item.Title)
+                     </td>
+                     <td>
+                         @Html.DisplayFor(modelItem => item.PageCount)
+                     </td>
+                     <td>
+                         @item.Authors                       
+                     </td>
+                     <td>
+                         @Html.DisplayFor(modelItem => item.Description)
+                     </td>
+                     <td>
+                         @item.Price
+                         @*@Html.DisplayFor(modelItem => item.Price)*@
+                     </td>
+                     <td>
+                         @Html.DisplayFor(modelItem => item.PressYear)
+                     </td>
+                     <td>
+                         @Html.DisplayFor(modelItem => item.StockCount)
+                     </td>
+                     <td>
+                         @Html.DisplayFor(modelItem => item.Category.Name)
+                     </td>                    
+                     <td>                        
+                         <a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id">Details</a>                         
+                     </td>
+                 </tr>
+             }
+         </tbody>
+     </table>
+ </div>
+}
+

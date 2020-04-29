@@ -1,0 +1,9 @@
+﻿<div class="navbar-collapse collapse">
+            @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+            {
+                <ul class="nav navbar-nav">
+                    <li>@Html.TextBox("Ara", ViewBag.CurrentFilter as string)</li>
+                    <li><input type="submit" value="Ara" /></li>
+                </ul>
+            }
+</div>
